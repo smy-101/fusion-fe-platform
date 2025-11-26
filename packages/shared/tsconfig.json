@@ -19,7 +19,12 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@fusion/shared": ["./src"],
+      "@fusion/shared/*": ["./src/*"]
+    }
   },
   "include": ["src"]
 }

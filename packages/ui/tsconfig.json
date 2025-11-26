@@ -19,7 +19,17 @@
     "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@fusion/ui": ["./src"],
+      "@fusion/ui/*": ["./src/*"],
+      "@fusion/shared": ["../shared/src"],
+      "@fusion/shared/*": ["../shared/src/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    { "path": "../shared" }
+  ]
 }

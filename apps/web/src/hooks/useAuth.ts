@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useCurrentUser } from '@fusion/shared/auth-hooks'
+import { useCurrentUser } from '@fusion/shared'
 
 interface User {
   id: number

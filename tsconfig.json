@@ -27,7 +27,6 @@
   },
   "include": ["apps/*/src", "packages/*/src"],
   "references": [
-    { "path": "./apps/web" },
     { "path": "./packages/shared" },
     { "path": "./packages/ui" }
   ]

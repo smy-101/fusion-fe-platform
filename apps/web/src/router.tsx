@@ -4,6 +4,7 @@ import AuthLayout from './components/AuthLayout'
 import Home from './pages/Home'
 import About from './pages/About'
 import Login from './pages/Login'
+import MockTest from './pages/MockTest'
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
       {
         path: 'about',
         element: <About />,
+      },
+      {
+        path: 'mock-test',
+        element: <MockTest />,
       },
     ],
   },

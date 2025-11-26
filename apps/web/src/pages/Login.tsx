@@ -1,9 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
-import { Form, FormItem } from '@fusion/ui/Form'
+import { Form, FormItem, FormValues } from '@fusion/ui/Form'
 import { Input } from '@fusion/ui/Input'
 import { Button } from '@fusion/ui/Button'
-import { useLogin } from '@fusion/shared/auth-hooks'
+import { useLogin } from '@fusion/shared'
 
 interface LoginFormData {
   username: string
@@ -14,9 +14,9 @@ const Login: React.FC = () => {
   const navigate = useNavigate()
   const loginMutation = useLogin()
 
-  const handleSubmit = async (values: LoginFormData) => {
+  const handleSubmit = async (values: FormValues) => {
     try {
-      await loginMutation.mutateAsync(values)
+      await loginMutation.mutateAsync(values as LoginFormData)
       
       // 登录成功，跳转到首页
       navigate('/')

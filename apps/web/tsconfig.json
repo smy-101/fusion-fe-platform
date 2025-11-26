@@ -22,7 +22,8 @@
       "@fusion/shared/*": ["../../packages/shared/src/*"],
       "@fusion/ui": ["../../packages/ui/src"],
       "@fusion/ui/*": ["../../packages/ui/src/*"]
-    }
+    },
+
   },
   "include": ["src"],
   "references": [

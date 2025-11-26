@@ -29,6 +29,12 @@ const Layout: React.FC = () => {
               >
                 About
               </Link>
+              <Link
+                to="/mock-test"
+                className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Mock测试
+              </Link>
               {user && (
                 <>
                   <span className="text-gray-700 px-3 py-2 text-sm">

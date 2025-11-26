@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import { mockApiService, isMockMode } from './mock-api'
 
 // ===== 类型定义 =====
 
@@ -128,21 +129,33 @@ class ApiService {
   // ===== 认证相关方法 =====
 
   async login(credentials: LoginRequest): Promise<ApiAuthResponse<LoginResponse>> {
+    if (isMockMode()) {
+      return mockApiService.login(credentials)
+    }
     const response = await this.client.post('/auth/login', credentials)
     return response.data
   }
 
   async logout(): Promise<ApiAuthResponse> {
+    if (isMockMode()) {
+      return mockApiService.logout()
+    }
     const response = await this.client.post('/auth/logout')
     return response.data
   }
 
   async getCurrentUser(): Promise<ApiAuthResponse<LoginResponse['user']>> {
+    if (isMockMode()) {
+      return mockApiService.getCurrentUser()
+    }
     const response = await this.client.get('/auth/me')
     return response.data
   }
 
   async refreshToken(): Promise<ApiAuthResponse<{ token: string }>> {
+    if (isMockMode()) {
+      return mockApiService.refreshToken()
+    }
     const response = await this.client.post('/auth/refresh')
     return response.data
   }
@@ -150,26 +163,41 @@ class ApiService {
   // ===== HTTP方法 =====
 
   async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiAuthResponse<T>> {
+    if (isMockMode()) {
+      return mockApiService.get<T>(url)
+    }
     const response = await this.client.get(url, config)
     return response.data
   }
 
   async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiAuthResponse<T>> {
+    if (isMockMode()) {
+      return mockApiService.post<T>(url, data)
+    }
     const response = await this.client.post(url, data, config)
     return response.data
   }
 
   async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiAuthResponse<T>> {
+    if (isMockMode()) {
+      return mockApiService.put<T>(url, data)
+    }
     const response = await this.client.put(url, data, config)
     return response.data
   }
 
   async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiAuthResponse<T>> {
+    if (isMockMode()) {
+      return mockApiService.post<T>(url, data) // Mock中使用POST代替PATCH
+    }
     const response = await this.client.patch(url, data, config)
     return response.data
   }
 
   async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiAuthResponse<T>> {
+    if (isMockMode()) {
+      return mockApiService.delete<T>(url)
+    }
     const response = await this.client.delete(url, config)
     return response.data
   }

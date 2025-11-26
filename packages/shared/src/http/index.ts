@@ -95,5 +95,8 @@ export {
   useUserIfLoggedIn
 } from './api-hooks'
 
+// ===== Mock API =====
+export { mockApiService, MockApiService, isMockMode } from './mock-api'
+
 // ===== 工具函数 =====
 export { createApiUrl } from './api'
