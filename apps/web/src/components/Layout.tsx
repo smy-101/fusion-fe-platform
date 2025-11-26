@@ -1,7 +1,11 @@
 import React from 'react'
 import { Outlet, Link } from 'react-router'
+import { useAuth } from '../hooks/useAuth'
+import { Button } from '@fusion/ui/Button'
 
 const Layout: React.FC = () => {
+  const { user, logout } = useAuth()
+
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm border-b">
@@ -25,6 +29,20 @@ const Layout: React.FC = () => {
               >
                 About
               </Link>
+              {user && (
+                <>
+                  <span className="text-gray-700 px-3 py-2 text-sm">
+                    欢迎, {user.name}
+                  </span>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={logout}
+                  >
+                    登出
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>

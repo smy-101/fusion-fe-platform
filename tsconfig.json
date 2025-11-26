@@ -18,8 +18,11 @@
     "baseUrl": ".",
     "paths": {
       "@fusion/web": ["./apps/web/src"],
+      "@fusion/web/*": ["./apps/web/src/*"],
       "@fusion/shared": ["./packages/shared/src"],
-      "@fusion/ui": ["./packages/ui/src"]
+      "@fusion/shared/*": ["./packages/shared/src/*"],
+      "@fusion/ui": ["./packages/ui/src"],
+      "@fusion/ui/*": ["./packages/ui/src/*"]
     }
   },
   "include": ["apps/*/src", "packages/*/src"],
