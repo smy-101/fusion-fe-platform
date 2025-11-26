@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useCurrentUser } from '@fusion/shared/auth-hooks'
 
 interface User {
   id: number
@@ -11,6 +12,8 @@ export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  
+  const { data: currentUserData, isLoading: currentUserLoading } = useCurrentUser()
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -30,6 +33,14 @@ export const useAuth = () => {
     setLoading(false)
   }, [])
 
+  // 同步react-query的用户数据
+  useEffect(() => {
+    if (currentUserData?.data) {
+      setUser(currentUserData.data)
+      setIsAuthenticated(true)
+    }
+  }, [currentUserData])
+
   const logout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
@@ -40,7 +51,7 @@ export const useAuth = () => {
   return {
     isAuthenticated,
     user,
-    loading,
+    loading: loading || currentUserLoading,
     logout
   }
 }

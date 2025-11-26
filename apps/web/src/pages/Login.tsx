@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router'
 import { Form, FormItem } from '@fusion/ui/Form'
 import { Input } from '@fusion/ui/Input'
 import { Button } from '@fusion/ui/Button'
+import { useLogin } from '@fusion/shared/auth-hooks'
 
 interface LoginFormData {
   username: string
@@ -10,37 +11,18 @@ interface LoginFormData {
 }
 
 const Login: React.FC = () => {
-  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const loginMutation = useLogin()
 
   const handleSubmit = async (values: LoginFormData) => {
-    setLoading(true)
-    
     try {
-      // Mock登录逻辑
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await loginMutation.mutateAsync(values)
       
-      // 简单的mock验证
-      if (values.username === 'admin' && values.password === '123456') {
-        // 存储token到localStorage
-        localStorage.setItem('token', 'mock-jwt-token')
-        localStorage.setItem('user', JSON.stringify({
-          id: 1,
-          username: 'admin',
-          name: '管理员',
-          role: 'admin'
-        }))
-        
-        alert('登录成功！')
-        // 跳转到首页
-        navigate('/')
-      } else {
-        alert('用户名或密码错误！\n提示：admin/123456')
-      }
+      // 登录成功，跳转到首页
+      navigate('/')
     } catch (error) {
-      alert('登录失败，请重试')
-    } finally {
-      setLoading(false)
+      console.error('登录失败:', error)
+      // 错误处理已经在useLogin中完成
     }
   }
 
@@ -93,10 +75,10 @@ const Login: React.FC = () => {
           <div>
             <Button
               type="submit"
-              disabled={loading}
+              disabled={loginMutation.isPending}
               className="w-full"
             >
-              {loading ? '登录中...' : '登录'}
+              {loginMutation.isPending ? '登录中...' : '登录'}
             </Button>
           </div>
         </Form>
